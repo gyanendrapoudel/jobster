@@ -45,18 +45,27 @@ async(_, thunkAPI)=>{
 const allJobsSlice = createSlice({
   name: 'allJobs',
   initialState,
+  reducers: {
+    showLoading: (state) => {
+      state.isLoading = true
+    },
+    hideLoading: (state) => {
+      state.isLoading = false
+    },
+  },
   extraReducers: {
     [getAllJobs.pending]: (state) => {
       state.isLoading = true
     },
-    [getAllJobs.fulfilled]: (state,{payload}) => {
+    [getAllJobs.fulfilled]: (state, { payload }) => {
       state.isLoading = false
-      state.jobs=payload.jobs
+      state.jobs = payload.jobs
     },
-    [getAllJobs.rejected]: (state,{payload}) => {
+    [getAllJobs.rejected]: (state, { payload }) => {
       state.isLoading = false
       toast.error(payload)
-    }
+    },
   },
 })
+export const {showLoading, hideLoading} =allJobsSlice.actions;
 export default allJobsSlice.reducer
