@@ -79,7 +79,7 @@ const jobSlice = createSlice({
       toast.error(payload)
     },
     [deleteJob.fulfilled]: (state, { payload }) => {
-      toast.success(payload)
+      toast.success(payload.msg)
     },
     [deleteJob.rejected]: (state, { payload }) => {
       toast.error(payload)
