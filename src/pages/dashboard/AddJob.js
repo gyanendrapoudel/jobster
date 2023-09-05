@@ -4,7 +4,7 @@ import { FormRow, FormRowSelect } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
-import { handleChange, clearValues, createJob } from "../../features/job/jobSlice";
+import { handleChange, clearValues, createJob, editJob } from "../../features/job/jobSlice";
 import { useEffect } from "react";
 
 
@@ -29,6 +29,10 @@ const AddJob = () => {
     if (!position || !company || !jobLocation) {
       toast.error('please fill out all fields')
       return
+    }
+    if(isEditing){
+      dispatch(editJob({jobId:editJobId, job:{position, company,jobLocation, jobType, status}}))
+      return;
     }
     dispatch(createJob({position, company, jobLocation, jobType, status}))
   }
