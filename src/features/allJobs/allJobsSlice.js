@@ -1,32 +1,26 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import customFetch from "../../utils/axios"
-import { toast } from "react-toastify"
-import { getAllJobsThunk, showStatsThunk } from "./allJobsThunk"
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
+import { getAllJobsThunk, showStatsThunk } from './allJobsThunk'
 
-
-
-const initialFilterState ={
-    search:'',
-    searchStatus:'all',
-    searchType:'all',
-    sort:'latest',
-    sortOptions:['latest','oldest', 'a-z','z-a'],
-
+const initialFilterState = {
+  search: '',
+  searchStatus: 'all',
+  searchType: 'all',
+  sort: 'latest',
+  sortOptions: ['latest', 'oldest', 'a-z', 'z-a'],
 }
-const initialState={
-    
-    isLoading:true,
-    jobs:[],
-    totalJobs: 0,
-    numOfPages:1,
-    page:1, 
-    stats:{},
-    monthlyApplications:[],
-    ...initialFilterState,
-
+const initialState = {
+  isLoading: true,
+  jobs: [],
+  totalJobs: 0,
+  numOfPages: 1,
+  page: 1,
+  stats: {},
+  monthlyApplications: [],
+  ...initialFilterState,
 }
-export const getAllJobs = createAsyncThunk('allJobs/getJobs',getAllJobsThunk);
-export const showStats = createAsyncThunk('allJobs/showStats', showStatsThunk);
+export const getAllJobs = createAsyncThunk('allJobs/getJobs', getAllJobsThunk)
+export const showStats = createAsyncThunk('allJobs/showStats', showStatsThunk)
 
 const allJobsSlice = createSlice({
   name: 'allJobs',
@@ -38,18 +32,18 @@ const allJobsSlice = createSlice({
     hideLoading: (state) => {
       state.isLoading = false
     },
-    handleChange:(state, {payload:{name, value}})=>{
+    handleChange: (state, { payload: { name, value } }) => {
       //state.page=1 later
-      state.page=1 // every new request this will set back page to 1
+      state.page = 1 // every new request this will set back page to 1
       state[name] = value
     },
-    clearFilters:(state)=>{
-      return{...state, ...initialFilterState}
+    clearFilters: (state) => {
+      return { ...state, ...initialFilterState }
     },
-    changePage:(state, {payload})=>{
-      state.page=payload
-     
-    }
+    changePage: (state, { payload }) => {
+      state.page = payload
+    },
+    clearAllJobsState: () => initialState,
   },
   extraReducers: {
     [getAllJobs.pending]: (state) => {
@@ -58,8 +52,8 @@ const allJobsSlice = createSlice({
     [getAllJobs.fulfilled]: (state, { payload }) => {
       state.isLoading = false
       state.jobs = payload.jobs
-      state.numOfPages=payload.numOfPages
-      state.totalJobs= payload.totalJobs
+      state.numOfPages = payload.numOfPages
+      state.totalJobs = payload.totalJobs
     },
     [getAllJobs.rejected]: (state, { payload }) => {
       state.isLoading = false
@@ -69,16 +63,23 @@ const allJobsSlice = createSlice({
       state.isLoading = true
     },
     [showStats.fulfilled]: (state, { payload }) => {
-    //  console.log(payload)
-      state.isLoading = false;
+      //  console.log(payload)
+      state.isLoading = false
       state.stats = payload.defaultStats
       state.monthlyApplications = payload.monthlyApplications
     },
     [showStats.rejected]: (state, { payload }) => {
-      state.isLoading = false;
-      toast.error(payload);
+      state.isLoading = false
+      toast.error(payload)
     },
   },
 })
-export const {showLoading, hideLoading, handleChange, clearFilters, changePage} =allJobsSlice.actions;
+export const {
+  showLoading,
+  hideLoading,
+  handleChange,
+  clearFilters,
+  changePage,
+  clearAllJobsState,
+} = allJobsSlice.actions
 export default allJobsSlice.reducer
