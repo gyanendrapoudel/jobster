@@ -2,6 +2,7 @@ import { FormRow, FormRowSelect } from '.'
 import Wrapper from '../assets/wrappers/SearchContainer'
 import { useSelector, useDispatch } from 'react-redux'
 import { handleChange, clearFilters} from '../features/allJobs/allJobsSlice'
+import PageBtnContainer from './PageBtnContainer'
 
 const SearchContainer = () => {
  

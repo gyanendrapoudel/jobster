@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import JobInfo from './JobInfo'
 import moment from 'moment'
 import { deleteJob,setEditJob } from '../features/job/jobSlice'
+
 const Job = ({_id,position,company, createdAt, jobLocation, jobType,status, updatedAt }) => {
   const dispatch = useDispatch()
   const date = moment(createdAt).format('MMM Do,YYYY')
@@ -41,6 +42,7 @@ const Job = ({_id,position,company, createdAt, jobLocation, jobType,status, upda
           </button>
         </footer>
       </div>
+      
     </Wrapper>
   )
 }
