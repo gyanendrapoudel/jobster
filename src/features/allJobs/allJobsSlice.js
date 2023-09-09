@@ -74,7 +74,8 @@ const allJobsSlice = createSlice({
     },
     handleChange:(state, {payload:{name, value}})=>{
       //state.page=1 later
-      state[name]= value
+      state.page=1 // every new request this will set back page to 1
+      state[name] = value
     },
     clearFilters:(state)=>{
       return{...state, ...initialFilterState}
