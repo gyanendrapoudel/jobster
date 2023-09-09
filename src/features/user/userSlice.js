@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit'
 import { toast } from 'react-toastify'
-import customFetch from '../../utils/axios';
+import customFetch,{checkForUnauthorizedResponse} from '../../utils/axios';
 import { addUserToLocalStorage, getUserFromLocalStorage, removeUserFromLocalStorage } from '../../utils/localStorage';
 import { clearAllJobsState } from '../allJobs/allJobsSlice'
 import { clearValues } from '../job/jobSlice'
@@ -44,12 +44,8 @@ export const updateUser = createAsyncThunk('user/updateUser',
    )
    return resp.data
  } catch (error) {
-  if(error.response.status===401){
-    thunkAPI.dispatch(logoutUser())
-  return thunkAPI.rejectWithValue('Unauthorized user.. logging out!!')
-   
-  }
-  return thunkAPI.rejectWithValue(error.response.data.msg);
+  
+    return checkForUnauthorizedResponse(error, thunkAPI)
  }
 })
 
