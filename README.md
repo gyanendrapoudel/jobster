@@ -2,13 +2,7 @@
 
 Project in Action - [Jobster](https://redux-toolkit-jobster.netlify.app/)
 
-#### React Course
 
-[My React Course](https://www.udemy.com/course/react-tutorial-and-projects-course/?referralCode=FEE6A921AF07E2563CEF)
-
-#### Support
-
-Find the App Useful? [You can always buy me a coffee](https://www.buymeacoffee.com/johnsmilga)
 
 #### Run The App Locally
 
@@ -16,7 +10,6 @@ Find the App Useful? [You can always buy me a coffee](https://www.buymeacoffee.c
 npm run install && npm start
 ```
 
-- visit url http://localhost:3000/
 
 #### Setup React App
 
